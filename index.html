@@ -1,33 +1,115 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Amo a Andreina</title>
-  <style>
-    body {
-      margin: 0;
-      background: #ffe6f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      flex-direction: column;
-      font-family: sans-serif;
-    }
-    img {
-      max-width: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    }
-    h1 {
-      color: #d63384;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Amo a Andreina</title>
+    
+    <style>
+        /* ---------------------------------- */
+        /* ESTILOS BASE (Mantenidos y mejorados) */
+        /* ---------------------------------- */
+        body {
+            margin: 0;
+            background: #ffe6f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+        }
+        img {
+            max-width: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #d63384;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* ---------------------------------- */
+        /* ESTILOS DEL CONTADOR */
+        /* ---------------------------------- */
+        #contador-container {
+            text-align: center;
+            margin-top: 15px;
+            padding: 15px 25px;
+            border: 2px solid #d63384;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #contador-container p {
+            margin: 0 0 5px 0;
+            font-size: 0.9em;
+            color: #777;
+        }
+        #tiempo-juntos {
+            color: #880e4f; 
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-  <img src="andreina.jpeg" alt="Andreina">
-  <h1>Amo a Andreina ❤️</h1>
+    
+    <img src="andreina.jpeg" alt="Andreina">
+    <h1>Amo a Andreina ❤️</h1>
+    
+    <div id="contador-container">
+        <p>Llevamos juntos:</p>
+        <h2 id="tiempo-juntos">Cargando...</h2> 
+    </div>
+
+    <script>
+        function actualizarContador() {
+            // ⚠️ AJUSTA LA FECHA DE INICIO AQUÍ (Año, Mes-1, Día, Hora, Minuto, Segundo)
+            // Usando tu fecha: 1 de Agosto de 2025 (Mes 7 = Agosto)
+            const startDate = new Date(2025, 7, 1, 21, 15, 0); 
+            
+            // Verificamos si la fecha de inicio es en el futuro (para evitar errores si aún no llegan a esa fecha)
+            const now = new Date();
+            if (startDate > now) {
+                 document.getElementById('tiempo-juntos').textContent = "¡Pronto Empezaremos a Contar!";
+                 return; 
+            }
+            
+            const diff = now.getTime() - startDate.getTime();
+
+            // Cálculo del tiempo transcurrido
+            const segundos = Math.floor(diff / 1000);
+            const minutos = Math.floor(segundos / 60);
+            const horas = Math.floor(minutos / 60);
+            const dias = Math.floor(horas / 24);
+
+            const años = Math.floor(dias / 365.25);
+            
+            const segundosRestantes = segundos % 60;
+            const minutosRestantes = minutos % 60;
+            const horasRestantes = horas % 24;
+            const diasRestantes = dias % 365;
+
+            let output = "";
+            
+            if (años > 0) {
+                output += `${años} años, `;
+            }
+            output += `${diasRestantes} días, ${horasRestantes} horas, ${minutosRestantes} minutos y ${segundosRestantes} segundos.`;
+
+            // Muestra en el elemento con el ID "tiempo-juntos"
+            const contadorElement = document.getElementById('tiempo-juntos');
+            if (contadorElement) {
+                contadorElement.textContent = output;
+            }
+        }
+
+        actualizarContador();
+        // Llama a la función cada segundo
+        setInterval(actualizarContador, 1000);
+    </script>
 </body>
 </html>
