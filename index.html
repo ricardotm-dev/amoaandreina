@@ -7,27 +7,45 @@
     
     <style>
         /* ---------------------------------- */
-        /* ESTILOS BASE (Mantenidos y mejorados) */
+        /* ESTILOS BASE Y BANNER (Placeholder) */
         /* ---------------------------------- */
         body {
             margin: 0;
             background: #ffe6f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            flex-direction: column;
             font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden; /* ❄️ NUEVO: Evita el scroll horizontal por la nieve */
         }
-        img {
-            max-width: 90%;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+
+        /* Contenedor del Banner - LISTO PARA TU DIBUJO */
+        .header-banner {
+            height: 450px; 
+            width: 100%;
+            /* 🟢 Fondo temporal: Usará este color hasta que añadas la imagen */
+            background-color: #fce4ec; 
+            
+            background-image: url('charli2.png');
+            background-size: cover;
+            background-position: center; 
+            
+            background-repeat: no-repeat;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            align-items: center;
+
+            position: relative; /* Añadido para posicionar el h1 y la nieve */
+            overflow: hidden; /* Añadido para contener los elementos */
         }
+        
+        /* Título */
         h1 {
-            color: #d63384;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            color: #880e4f; 
+            margin-bottom: 20px;
+            font-size: 2.5em; 
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.9);
         }
 
         /* ---------------------------------- */
@@ -35,12 +53,15 @@
         /* ---------------------------------- */
         #contador-container {
             text-align: center;
-            margin-top: 15px;
+            /* Mueve el contador para que se superponga ligeramente con el banner */
+            margin: -20px auto 40px auto; 
             padding: 15px 25px;
             border: 2px solid #d63384;
             border-radius: 8px;
             background-color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: fit-content;
+            z-index: 10; /* Asegura que el contador esté por encima del banner */
         }
         #contador-container p {
             margin: 0 0 5px 0;
@@ -53,34 +74,105 @@
             font-weight: bold;
             margin: 0;
         }
+
+        /* ---------------------------------- */
+        /* ESTILOS DE LA GALERÍA DE FOTOS */
+        /* ---------------------------------- */
+        .galeria-fotos {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+        }
+
+        .galeria-fotos h2 {
+            color: #d63384;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .fotos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px;
+        }
+
+        .fotos-grid img {
+            width: 100%;
+            height: 250px; 
+            object-fit: cover; 
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .fotos-grid img:hover {
+            transform: scale(1.05); 
+        }
+
+        /* ---------------------------------- */
+        /* ESTILOS DE LA NIEVE (NUEVO) ❄️ */
+        /* ---------------------------------- */
+        .snowflake {
+            position: fixed; /* Mantiene la nieve fija sobre todo el viewport */
+            top: -10px; /* Empieza por encima de la pantalla */
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            pointer-events: none; /* Asegura que la nieve no interfiera con los clics */
+            z-index: 9999; 
+            animation: fall linear infinite; 
+        }
+
+        /* Animación de caída */
+        @keyframes fall {
+            to {
+                transform: translateY(100vh); /* Cae hasta el final de la pantalla */
+            }
+        }
     </style>
 </head>
 <body>
     
-    <img src="andreina.jpeg" alt="Andreina">
-    <h1>Amo a Andreina ❤️</h1>
+    <audio id="audio-fondo" src="fotos/music.mp3" loop></audio>
+    
+    <div class="header-banner">
+        <h1>丁乇    卂爪ㄖ    卂几ᗪ尺乇卂</h1>
+    </div>
     
     <div id="contador-container">
         <p>Llevamos juntos:</p>
         <h2 id="tiempo-juntos">Cargando...</h2> 
     </div>
 
+    <section class="galeria-fotos">
+        <h2>Nuestros Momentos</h2>
+        <div class="fotos-grid">
+            <img src="fotos/foto1.jpeg" alt="Un momento especial">
+            <img src="fotos/foto2.jpeg" alt="Otro momento">
+            <img src="fotos/foto3.jpeg" alt="Recuerdo de viaje">
+            <img src="fotos/foto4.jpeg" alt="Fin de semana">
+            <img src="fotos/foto5.jpeg" alt="Recuerdo de viaje">
+            <img src="fotos/foto6.jpeg" alt="Fin de semana">
+            <img src="fotos/foto7.jpeg" alt="Un momento especial">
+            <img src="fotos/foto8.jpeg" alt="Otro momento">
+        </div>
+    </section>
+
     <script>
+        // --- Lógica del Contador ---
         function actualizarContador() {
             // ⚠️ AJUSTA LA FECHA DE INICIO AQUÍ (Año, Mes-1, Día, Hora, Minuto, Segundo)
-            // Usando tu fecha: 1 de Agosto de 2025 (Mes 7 = Agosto)
             const startDate = new Date(2025, 7, 1, 21, 15, 0); 
-            
-            // Verificamos si la fecha de inicio es en el futuro (para evitar errores si aún no llegan a esa fecha)
             const now = new Date();
+            
             if (startDate > now) {
-                 document.getElementById('tiempo-juntos').textContent = "¡Pronto Empezaremos a Contar!";
+                 document.getElementById('tiempo-juntos').textContent = "¡La cuenta empieza pronto!";
                  return; 
             }
             
             const diff = now.getTime() - startDate.getTime();
 
-            // Cálculo del tiempo transcurrido
             const segundos = Math.floor(diff / 1000);
             const minutos = Math.floor(segundos / 60);
             const horas = Math.floor(minutos / 60);
@@ -100,7 +192,6 @@
             }
             output += `${diasRestantes} días, ${horasRestantes} horas, ${minutosRestantes} minutos y ${segundosRestantes} segundos.`;
 
-            // Muestra en el elemento con el ID "tiempo-juntos"
             const contadorElement = document.getElementById('tiempo-juntos');
             if (contadorElement) {
                 contadorElement.textContent = output;
@@ -108,8 +199,50 @@
         }
 
         actualizarContador();
-        // Llama a la función cada segundo
         setInterval(actualizarContador, 1000);
+        
+        
+        // --- Lógica de Inicio de Audio al Interacción ---
+        const audioFondo = document.getElementById('audio-fondo');
+        
+        function intentarReproducirAudio() {
+            if (audioFondo.paused) {
+                audioFondo.play().then(() => {
+                    console.log("Audio iniciado por interacción del usuario.");
+                    document.removeEventListener('click', intentarReproducirAudio);
+                    document.removeEventListener('scroll', intentarReproducirAudio);
+                }).catch(error => {
+                    console.error("Fallo al iniciar el audio:", error);
+                });
+            }
+        }
+
+        document.addEventListener('click', intentarReproducirAudio);
+        document.addEventListener('scroll', intentarReproducirAudio);
+
+        audioFondo.play().catch(error => {
+            console.log("Autoplay bloqueado. Audio se iniciará con el primer clic.");
+        });
+
+        // --- Lógica del Efecto de Nieve (NUEVO) ❄️ ---
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            document.body.appendChild(snowflake);
+
+            const size = Math.random() * 5 + 5; 
+            snowflake.style.width = `${size}px`;
+            snowflake.style.height = `${size}px`;
+            snowflake.style.left = `${Math.random() * 100}vw`; 
+            snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; 
+            snowflake.style.animationDelay = `${Math.random() * -10}s`; 
+        }
+
+        const numberOfSnowflakes = 50; 
+        for (let i = 0; i < numberOfSnowflakes; i++) {
+            createSnowflake();
+        }
+
     </script>
 </body>
 </html>
