@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>Amo a Andreina</title>
+    <title>Amo a Andreina ❤️</title> 
     
     <style>
         /* ---------------------------------- */
-        /* ESTILOS BASE Y BANNER (Placeholder) */
+        /* ESTILOS BASE Y BANNER */
         /* ---------------------------------- */
         body {
             margin: 0;
@@ -15,17 +15,16 @@
             font-family: 'Arial', sans-serif;
             min-height: 100vh;
             text-align: center;
-            overflow-x: hidden; /* ❄️ NUEVO: Evita el scroll horizontal por la nieve */
+            overflow-x: hidden; 
         }
 
-        /* Contenedor del Banner - LISTO PARA TU DIBUJO */
+        /* Contenedor del Banner */
         .header-banner {
             height: 450px; 
             width: 100%;
-            /* 🟢 Fondo temporal: Usará este color hasta que añadas la imagen */
             background-color: #fce4ec; 
             
-            background-image: url('charli2.png');
+            background-image: url('charli2.png'); 
             background-size: cover;
             background-position: center; 
             
@@ -36,8 +35,8 @@
             justify-content: flex-end; 
             align-items: center;
 
-            position: relative; /* Añadido para posicionar el h1 y la nieve */
-            overflow: hidden; /* Añadido para contener los elementos */
+            position: relative; 
+            overflow: hidden; 
         }
         
         /* Título */
@@ -53,7 +52,6 @@
         /* ---------------------------------- */
         #contador-container {
             text-align: center;
-            /* Mueve el contador para que se superponga ligeramente con el banner */
             margin: -20px auto 40px auto; 
             padding: 15px 25px;
             border: 2px solid #d63384;
@@ -61,7 +59,7 @@
             background-color: #ffffff;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             max-width: fit-content;
-            z-index: 10; /* Asegura que el contador esté por encima del banner */
+            z-index: 10; 
         }
         #contador-container p {
             margin: 0 0 5px 0;
@@ -109,17 +107,28 @@
         .fotos-grid img:hover {
             transform: scale(1.05); 
         }
+        
+        /* ---------------------------------- */
+        /* ESTILOS DEL PIE DE PÁGINA */
+        /* ---------------------------------- */
+        footer {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0c4d4; 
+            color: #880e4f;
+            font-size: 0.8em;
+        }
 
         /* ---------------------------------- */
-        /* ESTILOS DE LA NIEVE (NUEVO) ❄️ */
+        /* ESTILOS DE LA NIEVE */
         /* ---------------------------------- */
         .snowflake {
-            position: fixed; /* Mantiene la nieve fija sobre todo el viewport */
-            top: -10px; /* Empieza por encima de la pantalla */
+            position: fixed; 
+            top: -10px; 
             background: #fff;
             border-radius: 50%;
             opacity: 0.8;
-            pointer-events: none; /* Asegura que la nieve no interfiera con los clics */
+            pointer-events: none; 
             z-index: 9999; 
             animation: fall linear infinite; 
         }
@@ -127,9 +136,42 @@
         /* Animación de caída */
         @keyframes fall {
             to {
-                transform: translateY(100vh); /* Cae hasta el final de la pantalla */
+                transform: translateY(100vh); 
             }
         }
+        
+        /* ---------------------------------- */
+        /* AJUSTES PARA TELÉFONOS MÓVILES (RESPONSIVE) */
+        /* ---------------------------------- */
+        @media (max-width: 600px) {
+            
+            /* 1. Banner: Reducir la altura en móviles */
+            .header-banner {
+                height: 300px; 
+            }
+
+            /* 2. Título: Reducir el tamaño de la fuente para que quepa mejor */
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 10px;
+            }
+
+            /* 3. Contador: Reducir el tamaño de la fuente */
+            #tiempo-juntos {
+                font-size: 1.2em;
+            }
+
+            /* 4. Galería: Forzar a dos columnas */
+            .fotos-grid {
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 10px; 
+            }
+
+            .fotos-grid img {
+                height: 150px; 
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -158,6 +200,10 @@
             <img src="fotos/foto8.jpeg" alt="Otro momento">
         </div>
     </section>
+
+    <footer>
+        <p>© 2025. Dedicado a mi Andreina con todo mi amor. 💖</p>
+    </footer>
 
     <script>
         // --- Lógica del Contador ---
@@ -224,7 +270,7 @@
             console.log("Autoplay bloqueado. Audio se iniciará con el primer clic.");
         });
 
-        // --- Lógica del Efecto de Nieve (NUEVO) ❄️ ---
+        // --- Lógica del Efecto de Nieve ---
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
