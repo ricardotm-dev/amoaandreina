@@ -24,7 +24,7 @@
             width: 100%;
             background-color: #fce4ec; 
             
-            background-image: url('charli2.png'); 
+            background-image: url('banner.jpeg'); 
             background-size: contain;
             background-position: center; 
             
@@ -188,7 +188,7 @@
     </div>
 
     <section class="galeria-fotos">
-        <h2>Nuestros Momentos</h2>
+        <h2>momentos</h2>
         <div class="fotos-grid">
             <img src="fotos/foto1.jpeg" alt="Un momento especial">
             <img src="fotos/foto2.jpeg" alt="Otro momento">
@@ -202,16 +202,18 @@
     </section>
 
     <footer>
-        <p>© 2025. Dedicado a mi Andreina con todo mi amor. 💖</p>
+        <p>© 2025. FELI CUMPLE 💖</p>
     </footer>
 
     <script>
-        // --- Lógica del Contador ---
+       // --- Lógica del Contador CORREGIDA ---
         function actualizarContador() {
-            // ⚠️ AJUSTA LA FECHA DE INICIO AQUÍ (Año, Mes-1, Día, Hora, Minuto, Segundo)
-            const startDate = new Date(2025, 7, 1, 21, 15, 0); 
+            // ⚠️ IMPORTANTE: En JS, Enero es 0 y Julio es 6.
+            // (Año, Mes-1, Día, Hora, Minuto, Segundo)
+            const startDate = new Date(2025, 6, 1, 21, 0, 0); 
             const now = new Date();
             
+            // Si la fecha actual es anterior a la fecha de inicio
             if (startDate > now) {
                  document.getElementById('tiempo-juntos').textContent = "¡La cuenta empieza pronto!";
                  return; 
@@ -219,17 +221,17 @@
             
             const diff = now.getTime() - startDate.getTime();
 
-            const segundos = Math.floor(diff / 1000);
-            const minutos = Math.floor(segundos / 60);
-            const horas = Math.floor(minutos / 60);
-            const dias = Math.floor(horas / 24);
+            const segundosTotales = Math.floor(diff / 1000);
+            const minutosTotales = Math.floor(segundosTotales / 60);
+            const horasTotales = Math.floor(minutosTotales / 60);
+            const diasTotales = Math.floor(horasTotales / 24);
 
-            const años = Math.floor(dias / 365.25);
+            const años = Math.floor(diasTotales / 365.25);
             
-            const segundosRestantes = segundos % 60;
-            const minutosRestantes = minutos % 60;
-            const horasRestantes = horas % 24;
-            const diasRestantes = dias % 365;
+            const segundosRestantes = segundosTotales % 60;
+            const minutosRestantes = minutosTotales % 60;
+            const horasRestantes = horasTotales % 24;
+            const diasRestantes = diasTotales % 365;
 
             let output = "";
             
